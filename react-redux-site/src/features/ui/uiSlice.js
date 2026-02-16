@@ -1,19 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  carsList: [
+    { id: 1, name: "BMW X5" },
+    { id: 2, name: "Audi A6" },
+    { id: 3, name: "Mercedes GLE" },
+  ],
+};
+
 const uiSlice = createSlice({
   name: "ui",
-  initialState: {
-    username: "Адис",
-    age: 19,
-    city: "Токмок",
-    theme: "light"
-  },
+  initialState,
   reducers: {
-    toggleTheme(state) {
-      state.theme = state.theme === "light" ? "dark" : "light";
-    }
-  }
+    addCar: (state, action) => {
+      state.carsList.push(action.payload);
+    },
+    removeCar: (state, action) => {
+      state.carsList = state.carsList.filter((car) => car.id !== action.payload);
+    },
+  },
 });
 
-export const { toggleTheme } = uiSlice.actions;
+export const { addCar, removeCar } = uiSlice.actions;
 export default uiSlice.reducer;

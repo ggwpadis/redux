@@ -1,37 +1,48 @@
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../features/ui/uiSlice";
+import React from 'react';
+import './Header.css';
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const theme = useSelector(state => state.ui.theme);
-
-  const headerStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "20px 40px",
-    background: theme === "light" ? "#f0f0f0" : "#333",
-    color: theme === "light" ? "#000" : "#fff",
-    boxShadow: theme === "light" ? "0 2px 5px rgba(0,0,0,0.1)" : "0 2px 5px rgba(0,0,0,0.5)"
-  };
-
-  const buttonStyle = {
-    padding: "8px 16px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    background: theme === "light" ? "#333" : "#eee",
-    color: theme === "light" ? "#fff" : "#333",
-    transition: "0.3s"
-  };
+  const navLinks = [
+    { name: 'Главная', path: '/' },
+    { name: 'Каталог', path: '/catalog' },
+    { name: 'Сравнение', path: '/compare' },
+    { name: 'Акции', path: '/offers' },
+    { name: 'О нас', path: '/about' },
+    { name: 'Блог', path: '/blog' },
+    { name: 'Контакты', path: '/contacts' }
+  ];
 
   return (
-    <header style={headerStyle}>
-      <h1>Мой сайт Redux</h1>
-      <button style={buttonStyle} onClick={() => dispatch(toggleTheme())}>
-        Сменить тему
-      </button>
+    <header className="header">
+      <div className="header-container">
+        <div className="logo">
+          <a href="/">
+            <span className="logo-grand">Grand</span>
+            <span className="logo-motors">Motors</span>
+          </a>
+        </div>
+
+        <nav className="nav-menu">
+          <ul className="nav-list">
+            {navLinks.map((link, index) => (
+              <li key={index} className="nav-item">
+                <a href={link.path} className="nav-link">
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="header-actions">
+          <button className="btn-test-drive">
+            Запись на тест-драйв
+          </button>
+          <button className="btn-menu-mobile">
+            <span className="hamburger-icon"></span>
+          </button>
+        </div>
+      </div>
     </header>
   );
 };
